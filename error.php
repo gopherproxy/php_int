@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>PHP start</title>
+<title>PHP error fix</title>
 </head>
 
 <body>
