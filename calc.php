@@ -4,15 +4,23 @@
 $formData = filter_input_array(INPUT_GET);
 // contents of the array $formdata:
 //print_r($formData);
-
 // storing array data in separate variables
 $f1 = $formData['value_1'];
 $f2 = $formData['value_2'];
+$cmd = $formData['cmd'];
 
-// function taking arguments (parameters when they have a value)
+// function taking arguments and RETURNING the result of a calculation 
 function addNumbers ($x, $y){
-	$result = $x + $y;
-	print $result;
+	return $x + $y;
+}
+
+// checking if 'add' button was pressed
+if($cmd === 'add'){
+	// storing the returned result from function addNumbers in $res
+	$res = addNumbers($f1, $f2);
+} else {
+	// default value of $res
+	$res = '...';
 }
 
 ?>
@@ -25,14 +33,12 @@ function addNumbers ($x, $y){
 
 <body>
 <form>
-	<input type="number" name="value_1" value="0" required>+
-	<input type="number" name="value_2" value="0" required>=
-
-<?php 
-	// calling a function with parameters
-	addNumbers($f1, $f2);
-	echo '<hr>';
-?>
+	<!-- Input fields preserve user input using Ternary operator and PHP shorthand notation for echo -->
+	<input type="number" name="value_1" value="<?= $cmd ? $f1 : '0'; ?>" required>+
+	<input type="number" name="value_2" value="<?= $cmd ? $f2 : '0'; ?>" required>=
+	<!-- Printing the result of the calculation ($res) using PHP shorthand notation for echo  -->
+	<?= $res ?>
+	
 	<!-- Your task: Implement ALL buttons! -->
  	<p><input type="submit" name="cmd" value="add"></p>
  	<!-- substraction -->
