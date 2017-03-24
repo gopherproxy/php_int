@@ -41,7 +41,8 @@ $spPlus = "$studypoints studypoints? Come on - that's not likely."
 <!-- NO INLINE STYLES -->
 <!-- Test your program routine with the numbers 75, 80, 85, 100, 200 -->
 <form>
-	<input type="number" name="sp" required>
+	<!--preserving form input with the ternary operator-->
+	<input type="number" name="sp" value="<?= $sp ? $sp : '0'; ?>" required>
 	<input type="submit" name="submit" value="so what?">
 </form>
 <?php 
