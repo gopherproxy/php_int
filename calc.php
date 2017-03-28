@@ -49,14 +49,38 @@ function addNumbers ($x, $y){
 	return $x + $y;
 }
 
-// checking if 'add' button was pressed
-if($cmd === 'add'){
-	// storing the returned result from function addNumbers in $res
-	$res = addNumbers($f1, $f2);
-} else {
-	// default value of $res
-	$res = '...';
+function subNumbers($n1, $n2){
+	return $n1 - $n2;
 }
+
+function mulNumbers($n1, $n2){
+	return $n1 * $n2;
+}
+
+function divNumbers($n1, $n2){
+	return $n1 / $n2;
+}
+
+
+switch($cmd) {
+	case 'add':
+		// storing the returned result from function addNumbers in $res
+		$res = addNumbers($f1, $f2);
+		break;
+	case 'sub':
+		$res = subNumbers($f1, $f2);
+		break;
+	case 'mul':
+		$res = mulNumbers($f1, $f2);
+		break;
+	case 'div':
+		$res = divNumbers($f1, $f2);
+		break;
+	default:
+	// default value of $res
+	$res = '...';		
+}
+
 
 ?>
 <!doctype html>
@@ -69,19 +93,19 @@ if($cmd === 'add'){
 <body>
 <form>
 	<!-- Input fields preserve user input using Ternary operator and PHP shorthand notation for echo -->
-	<input type="number" name="value_1" value="<?= $cmd ? $f1 : '0'; ?>" required>+
+	<input type="number" name="value_1" value="<?= $cmd ? $f1 : '0'; ?>" required> operator 
 	<input type="number" name="value_2" value="<?= $cmd ? $f2 : '0'; ?>" required>=
 	<!-- Printing the result of the calculation ($res) using PHP shorthand notation for echo  -->
 	<?= $res ?>
 	
 	<!-- Your task: Implement ALL buttons! -->
- 	<p><input type="submit" name="cmd" value="add"></p>
+ 	<p><input type="submit" name="cmd" value="add">
  	<!-- substraction -->
- 	<p><input type="submit" name="cmd" value="sub"></p>
+ 	<input type="submit" name="cmd" value="sub">
  	<!-- multiplication -->
- 	<p><input type="submit" name="cmd" value="mul"></p>
+	<input type="submit" name="cmd" value="mul">
  	<!-- division -->
- 	<p><input type="submit" name="cmd" value="div"></p>
+ 	<input type="submit" name="cmd" value="div"></p>
 </form>
 </body>
 </html>
