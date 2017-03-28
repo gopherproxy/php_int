@@ -74,7 +74,7 @@ switch($cmd) {
 		$res = mulNumbers($f1, $f2);
 		break;
 	case 'div':
-		$res = divNumbers($f1, $f2);
+		$res = round(divNumbers($f1, $f2), 2);
 		break;
 	default:
 	// default value of $res
@@ -86,7 +86,7 @@ if($res !== '...') {
 	echo 'We will add '.$res.' to the database...<br>'.PHP_EOL;
 	
 	// get the connection to the database
-	require('db_con.php');
+	require_once('db_con.php');
 
 	$sql = 'INSERT INTO calculations (result) VALUES (?)';
 	$stmt = $con->prepare($sql);
@@ -100,7 +100,6 @@ if($res !== '...') {
 	
 	//close connection
 	$stmt->close();
-	$con->close();
 }
 
 
@@ -129,5 +128,33 @@ if($res !== '...') {
  	<!-- division -->
  	<input type="submit" name="cmd" value="div"></p>
 </form>
+
+<hr>
+	<h2>Result history</h2>
+	 
+<?php
+
+	// get the connection to the database
+	require_once('db_con.php');
+
+	$sql = 'SELECT id, result FROM calculations ORDER BY id DESC LIMIT 5';
+	$stmt = $con->prepare($sql);
+	
+	// store the results in named variables
+	$stmt->bind_result($id, $result);
+	
+	// execute the statement
+	$stmt->execute();
+	
+	while($stmt->fetch()){
+		echo 'id:'.$id.' result was: '.$result.'<br>';
+	}
+	
+	$stmt->close();
+	
+?>
+
+
+
 </body>
 </html>
