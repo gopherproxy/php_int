@@ -82,6 +82,28 @@ switch($cmd) {
 }
 
 
+if($res !== '...') {
+	echo 'We will add '.$res.' to the database...<br>'.PHP_EOL;
+	
+	// get the connection to the database
+	require('db_con.php');
+
+	$sql = 'INSERT INTO calculations (result) VALUES (?)';
+	$stmt = $con->prepare($sql);
+
+	// bind paramerter type and variable
+	// type: i is int, d is double/decimal, s is string
+	$stmt->bind_param('d', $res);
+
+	// fetch values from bind params and send to dbms
+	$stmt->execute();
+	
+	//close connection
+	$stmt->close();
+	$con->close();
+}
+
+
 ?>
 <!doctype html>
 <html>
