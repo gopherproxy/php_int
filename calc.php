@@ -92,12 +92,12 @@ if($res !== '...') {
 	// get the connection to the database
 	require_once('db_con.php');
 
-	$sql = 'INSERT INTO calculations (result) VALUES (?)';
+	$sql = 'INSERT INTO calculations (num1, num2, op, result) VALUES (?,?,?,?)';
 	$stmt = $con->prepare($sql);
 
 	// bind paramerter type and variable
 	// type: i is int, d is double/decimal, s is string
-	$stmt->bind_param('d', $res);
+	$stmt->bind_param('iisd', $f1, $f2, $cmd, $res);
 
 	// fetch values from bind params and send to dbms
 	$stmt->execute();
@@ -142,19 +142,33 @@ if($res !== '...') {
 	// get the connection to the database
 	require_once('db_con.php');
 
-	$sql = 'SELECT id, result FROM calculations ORDER BY id DESC LIMIT 5';
+	$sql = 'SELECT num1, num2, op, result FROM calculations ORDER BY id DESC LIMIT 5';
 	$stmt = $con->prepare($sql);
 	
 	// store the results in named variables
-	$stmt->bind_result($id, $result);
+	$stmt->bind_result($num1, $num2, $op, $result);
 	
 	// execute the statement
 	$stmt->execute();
-	
+	echo '<ol>';
 	while($stmt->fetch()){
-		echo 'id:'.$id.' result was: '.$result.'<br>';
+		switch ($op){
+			case 'add':
+				$op = '+';
+				break;
+			case 'sub':
+				$op = '-';
+				break;
+			case 'div':
+				$op = '/';
+				break;
+			case 'mul':
+				$op = '*';
+				break;
+		}
+		echo "<li>$num1 $op $num2 = $result</li>";
 	}
-	
+	echo '</ol>';
 	//closing the statement
 	$stmt->close();
 	//closing the connection
