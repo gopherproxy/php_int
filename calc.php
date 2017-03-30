@@ -34,9 +34,13 @@
 //          `--.____,'|_________,-'                           //
 //                                                            //
 ////////////////////////////////////////////////////////////////
-
+$filters = array(
+ 	'value_1' => FILTER_VALIDATE_INT,
+	'value_2' => FILTER_VALIDATE_INT,
+	'cmd' => FILTER_SANITIZE_STRING
+);
 // grabbing array (associative array) from form
-$formData = filter_input_array(INPUT_GET);
+$formData = filter_input_array(INPUT_GET, $filters);
 // contents of the array $formdata:
 //print_r($formData);
 // storing array data in separate variables
@@ -98,8 +102,9 @@ if($res !== '...') {
 	// fetch values from bind params and send to dbms
 	$stmt->execute();
 	
-	//close connection
+	//close statement
 	$stmt->close();
+
 }
 
 
@@ -150,7 +155,10 @@ if($res !== '...') {
 		echo 'id:'.$id.' result was: '.$result.'<br>';
 	}
 	
+	//closing the statement
 	$stmt->close();
+	//closing the connection
+	$con->close();
 	
 ?>
 
