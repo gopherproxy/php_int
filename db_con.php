@@ -5,6 +5,7 @@ const MYSQLUSER = 'root'; // database user
 const MYSQLPASS = 'root'; // database password
 const MYSQLDB   = 'mil'; // database name
 
+
 // Create database connection object
 $con = new mysqli(HOSTNAME, MYSQLUSER, MYSQLPASS, MYSQLDB);
 
